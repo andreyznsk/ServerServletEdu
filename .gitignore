@@ -1,0 +1,7 @@
+#### Folders ####
+**/.idea/
+**/target/**
+**/.sberstack/**
+#### Files #####
+*.class
+*.iml
