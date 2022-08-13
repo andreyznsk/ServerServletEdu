@@ -4,12 +4,22 @@
 
 <web-app>
   <servlet>
-    <servlet-name>sonoojaiswal</servlet-name>
+    <servlet-name>welcome</servlet-name>
     <servlet-class>ru.sbt.servlet.DemoServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>sonoojaiswal</servlet-name>
+    <servlet-name>welcome</servlet-name>
     <url-pattern>/welcome</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>frontController</servlet-name>
+    <servlet-class>ru.sbt.servlet.controller.FrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>frontController</servlet-name>
+    <url-pattern>/start</url-pattern>
+  </servlet-mapping>
+
 </web-app>
