@@ -1,25 +1,63 @@
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <servlet>
-    <servlet-name>welcome</servlet-name>
-    <servlet-class>ru.sbt.servlet.DemoServlet</servlet-class>
-  </servlet>
+    <servlet>
+        <servlet-name>welcome</servlet-name>
+        <servlet-class>ru.sbt.servlet.DemoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>welcome</servlet-name>
+        <url-pattern>/welcome</url-pattern>
+    </servlet-mapping>
 
-  <servlet-mapping>
-    <servlet-name>welcome</servlet-name>
-    <url-pattern>/welcome</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>frontController</servlet-name>
+        <servlet-class>ru.sbt.servlet.controller.FrontController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>frontController</servlet-name>
+        <url-pattern>/start</url-pattern>
+    </servlet-mapping>
 
-  <servlet>
-    <servlet-name>frontController</servlet-name>
-    <servlet-class>ru.sbt.servlet.controller.FrontController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>frontController</servlet-name>
-    <url-pattern>/start</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>catalogController</servlet-name>
+        <servlet-class>ru.sbt.servlet.controller.CatalogController</servlet-class>
+        <init-param>
+            <param-name>catalogView</param-name>
+            <param-value>catalogView.jsp</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>catalogController</servlet-name>
+        <url-pattern>/start/catalog</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>cartController</servlet-name>
+        <servlet-class>ru.sbt.servlet.controller.CartController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cartController</servlet-name>
+        <url-pattern>/start/cart</url-pattern>
+    </servlet-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error-404.html</location>
+        <!-- /src/main/webapp/error-404.html-->
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error-500.html</location>
+        <!-- /src/main/webapp/error-404.html-->
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/error-500.html</location>
+    </error-page>
 
 </web-app>
