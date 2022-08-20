@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,10 +21,12 @@ import java.util.Collection;
         maxRequestSize = 1024 * 1024 * 100, // 100 MB
         location = "/tmp"
 )
+@Slf4j
 public class FileUploadServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.info("Servlet:{}, method: doPost", FileUploadServlet.class);
         final Collection<Part> parts = request.getParts();
         StringBuilder sb = new StringBuilder();
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("FileUploadForm.jsp");
@@ -47,4 +50,12 @@ public class FileUploadServlet extends HttpServlet {
         request.getSession().setAttribute("result", sb.toString());
         requestDispatcher.forward(request, response);
     }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.info("Servlet:{}, method: doGet", FileUploadServlet.class);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("FileUploadForm.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
 }
