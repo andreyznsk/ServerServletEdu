@@ -1,4 +1,4 @@
-package ru.sbt.servlet;
+package ru.edu.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

@@ -5,7 +5,7 @@
 <web-app>
     <servlet>
         <servlet-name>welcome</servlet-name>
-        <servlet-class>ru.sbt.servlet.DemoServlet</servlet-class>
+        <servlet-class>ru.edu.servlet.DemoServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>welcome</servlet-name>
@@ -14,7 +14,7 @@
 
     <servlet>
         <servlet-name>frontController</servlet-name>
-        <servlet-class>ru.sbt.servlet.controller.FrontController</servlet-class>
+        <servlet-class>ru.edu.servlet.controller.FrontController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>frontController</servlet-name>
@@ -23,7 +23,7 @@
 
     <servlet>
         <servlet-name>catalogController</servlet-name>
-        <servlet-class>ru.sbt.servlet.controller.CatalogController</servlet-class>
+        <servlet-class>ru.edu.servlet.controller.CatalogController</servlet-class>
         <init-param>
             <param-name>catalogView</param-name>
             <param-value>catalogView.jsp</param-value>
@@ -36,7 +36,7 @@
 
     <servlet>
         <servlet-name>cartController</servlet-name>
-        <servlet-class>ru.sbt.servlet.controller.CartController</servlet-class>
+        <servlet-class>ru.edu.servlet.controller.CartController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>cartController</servlet-name>
@@ -56,8 +56,19 @@
     </error-page>
 
     <error-page>
-        <exception-type>java.lang.Exception</exception-type>
+        <exception-type>java.lang.Throwable</exception-type>
         <location>/error-500.html</location>
     </error-page>
+
+    <error-page>
+        <error-code>400</error-code>
+        <location>/exception400Controller</location>
+    </error-page>
+
+    <error-page>
+        <error-code>405</error-code>
+        <location>/error-500.html</location>
+    </error-page>
+
 
 </web-app>

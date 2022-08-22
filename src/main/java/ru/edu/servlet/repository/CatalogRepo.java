@@ -1,6 +1,6 @@
-package ru.sbt.servlet.repository;
+package ru.edu.servlet.repository;
 
-import ru.sbt.servlet.dto.Product;
+import ru.edu.servlet.dto.Product;
 
 import java.util.Arrays;
 import java.util.List;
