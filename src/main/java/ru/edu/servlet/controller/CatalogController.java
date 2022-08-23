@@ -30,6 +30,5 @@ public class CatalogController extends HttpServlet {
         out.println("<h2>Product catalog</n2>");
         List<Product> all = catalogRepo.getAll();
         out.println(getBodyTableByProduct(all));
-        out.close();
     }
 }

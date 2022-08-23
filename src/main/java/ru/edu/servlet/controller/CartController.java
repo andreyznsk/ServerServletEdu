@@ -31,6 +31,5 @@ public class CartController extends HttpServlet {
         out.println("<h2>cart by user: [" + user + "} catalog</n2>");
         List<Product> byUser = cartRepo.getByUser(user);
         out.println(getBodyTableByProduct(byUser));
-        out.close();
     }
 }

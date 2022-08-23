@@ -36,7 +36,6 @@ public class FrontController extends HttpServlet {
         }
         out.println("<h1>" + getServletName() + "</h1>");
         out.println("</body></html>");
-        out.close();
     }
 
 }
