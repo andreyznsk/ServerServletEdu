@@ -13,5 +13,6 @@ context = http://localhost:8080/server/
 http://localhost:8080/server/ - start
 http://localhost:8080/server/welcome -welcome
 http://localhost:8080/server/start - FrontController
+http://localhost:8080/server/calculatorPage.jsp
 ###POST:
 http://localhost:8080/server/FileUploadForm.jsp - uploadFile
