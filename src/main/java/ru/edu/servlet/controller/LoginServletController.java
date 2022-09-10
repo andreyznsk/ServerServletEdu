@@ -18,9 +18,9 @@ public class LoginServletController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String username = Optional.ofNullable(req.getParameter("username")).orElse("");
-        String password = Optional.ofNullable(req.getParameter("password")).orElse("");
-        if (username.isEmpty() || password.isEmpty()) {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        if (username == null || password == null) {
             log.warn("Login or pwd is empty!");
             resp.sendError(400, "Login or password empty");
         } else {
