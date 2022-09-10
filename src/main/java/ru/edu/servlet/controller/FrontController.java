@@ -1,4 +1,4 @@
-package ru.sbt.servlet.controller;
+package ru.edu.servlet.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -36,29 +36,6 @@ public class FrontController extends HttpServlet {
         }
         out.println("<h1>" + getServletName() + "</h1>");
         out.println("</body></html>");
-       /* if(Objects.isNull(queryString)){
-            resp.setContentType("text/html");//setting the content type
-            PrintWriter pw = resp.getWriter();//get the stream to write the data
-            pw.println("<html><body>");
-            pw.println("set \"stage\" param to catalog or cart");
-            pw.println("</body></html>");
-            pw.close();
-        }
-        switch (queryString) {
-            case "catalog":
-                resp.sendRedirect(req.getContextPath() + "/catalog");
-                break;
-            case "cart":
-                resp.sendRedirect(req.getContextPath() + "/cart");
-                break;
-            default:
-                resp.setContentType("text/html");//setting the content type
-                PrintWriter pw = resp.getWriter();//get the stream to write the data
-                pw.println("<html><body>");
-                pw.println("Unknown param");
-                pw.println("</body></html>");
-                pw.close();
-        }*/
     }
 
 }
