@@ -1,4 +1,4 @@
-package ru.sbt.servlet.controller;
+package ru.edu.servlet.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -11,7 +11,6 @@ import jakarta.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
 
 @WebServlet(name = "FileUploadServlet", urlPatterns = {"/fileuploadservlet"})

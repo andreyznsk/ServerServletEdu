@@ -1,4 +1,4 @@
-package ru.sbt.servlet.dto;
+package ru.edu.servlet.dto;
 
 
 import lombok.AllArgsConstructor;

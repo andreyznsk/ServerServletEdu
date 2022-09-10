@@ -20,18 +20,19 @@
         <jakarta.servlet-api.version>5.0.0</jakarta.servlet-api.version>
         <jstl.version>1.2</jstl.version>
         <lombok.version>1.18.24</lombok.version>
+        <logback-classic.version>1.2.6</logback-classic.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.2.6</version>
+            <version>${logback-classic.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.6</version>
+            <version>${logback-classic.version}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.servlet</groupId>

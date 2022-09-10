@@ -1,17 +1,17 @@
-package ru.sbt.servlet.controller;
+package ru.edu.servlet.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import ru.sbt.servlet.dto.Product;
-import ru.sbt.servlet.repository.CatalogRepo;
+import ru.edu.servlet.dto.Product;
+import ru.edu.servlet.repository.CatalogRepo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import static ru.sbt.servlet.utils.TableProductGetBody.getBodyTableByProduct;
+import static ru.edu.servlet.utils.TableProductGetBody.getBodyTableByProduct;
 
 public class CatalogController extends HttpServlet {
 
