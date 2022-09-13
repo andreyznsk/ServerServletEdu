@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class CartRepo {
 
-    private static CartRepo cartRepo = new CartRepo();
-    private Map<String, List<Product>> cartCache = new HashMap<>();
+    private static final CartRepo cartRepo = new CartRepo();
+    private final Map<String, List<Product>> cartCache = new HashMap<>();
 
     private CartRepo(){
         this.cartCache.put("anyUser",
