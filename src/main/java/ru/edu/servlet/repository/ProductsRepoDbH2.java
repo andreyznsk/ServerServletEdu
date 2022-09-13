@@ -10,12 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsRepoImpl implements ProductsRepo {
+public class ProductsRepoDbH2 implements ProductsRepo {
 
-    private static final ProductsRepoImpl PRODUCTS_REPO_IMPL = new ProductsRepoImpl();
+    private static final ProductsRepoDbH2 PRODUCTS_REPO_IMPL = new ProductsRepoDbH2();
     private static final String SELECT_ALL_SQL = "SELECT * FROM PRODUCTS;";
 
-    private ProductsRepoImpl(){}
+    private ProductsRepoDbH2(){}
 
     public static ProductsRepo getInstance() {
         return PRODUCTS_REPO_IMPL;

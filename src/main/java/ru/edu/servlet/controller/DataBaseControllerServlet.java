@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import ru.edu.servlet.dataSourceConnectionConfig.TomCatDataSource;
 import ru.edu.servlet.dto.ProductDesc;
 import ru.edu.servlet.repository.ProductsRepo;
-import ru.edu.servlet.repository.ProductsRepoImpl;
+import ru.edu.servlet.repository.ProductsRepoDbH2;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -40,7 +40,7 @@ public class DataBaseControllerServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         TomCatDataSource.conf();
-        productsRepo = ProductsRepoImpl.getInstance();
+        productsRepo = ProductsRepoDbH2.getInstance();
         super.init();
     }
 }
