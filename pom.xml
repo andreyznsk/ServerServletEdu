@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress MavenPackageUpdate -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -18,9 +19,14 @@
         <maven.javadoc.skip>true</maven.javadoc.skip>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <jakarta.servlet-api.version>5.0.0</jakarta.servlet-api.version>
-        <jstl.version>1.2</jstl.version>
-        <lombok.version>1.18.24</lombok.version>
+        <jstl.version>2.0.0</jstl.version>
+        <lombok.version>1.18.22</lombok.version>
         <logback-classic.version>1.2.6</logback-classic.version>
+        <h2.version>1.4.200</h2.version>
+        <jakarta.servlet.jsp.jstl-api.version>2.0.0</jakarta.servlet.jsp.jstl-api.version>
+        <tomcat-jdbc.version>10.0.14</tomcat-jdbc.version>
+        <jsp-api.version>2.1</jsp-api.version>
+        <jakarta.servlet.jsp-api.version>3.0.0</jakarta.servlet.jsp-api.version>
     </properties>
 
     <dependencies>
@@ -40,30 +46,57 @@
             <version>${jakarta.servlet-api.version}</version>
         </dependency>
         <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet.jsp</groupId>
+            <artifactId>jakarta.servlet.jsp-api</artifactId>
+            <version>${jakarta.servlet.jsp-api.version}</version>
+        </dependency>
+
+        <!--<dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
-        </dependency>
+        </dependency>-->
+        <!--<dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp-api.version}</version>
+        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
             <version>${lombok.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>${tomcat-jdbc.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.sling</groupId>
+                <groupId>org.jasig.mojo.jspc</groupId>
                 <artifactId>jspc-maven-plugin</artifactId>
-                <version>2.3.4</version>
+                <version>2.0.0</version>
                 <executions>
                     <execution>
                         <id>compile-jsp</id>
-                        <goals>
+                        <!--<goals>
                             <goal>jspc</goal>
-                        </goals>
+                        </goals>-->
                     </execution>
                 </executions>
             </plugin>
