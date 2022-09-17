@@ -18,12 +18,12 @@ import java.util.regex.Pattern;
 
 @Slf4j
 @WebFilter(
-        filterName = "MainFilter",
+        filterName = "CalcFilter",
         urlPatterns = {"/calculator"}
 )
-public class MainFilter implements Filter {
+public class CalcFilter implements Filter {
 
-    private Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+    private static final Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {

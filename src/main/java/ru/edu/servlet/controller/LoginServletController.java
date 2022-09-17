@@ -11,8 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(name = "LoginServletController", urlPatterns = {"/loginServlet"})
 @Slf4j
+@WebServlet(name = "LoginServletController", urlPatterns = {"/loginServlet"})
 public class LoginServletController extends HttpServlet {
 
     @Override
