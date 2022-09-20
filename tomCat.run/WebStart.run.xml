@@ -1,22 +1,25 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="WebStart" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.0.23" ALTERNATIVE_JRE_ENABLED="false">
-    <option name="BROWSER_ID" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-    <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+    <option name="OPEN_IN_BROWSER_URL" value="http://localhost:9999/ServerEdU_war_exploded/user_greateeng.jsp" />
+    <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
+    <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
-      <artifact name="SrevletServerEdu:war exploded">
+      <artifact name="ServerEdU:war exploded">
         <settings>
-          <option name="CONTEXT_PATH" value="/SrevletServerEdu_war_exploded" />
+          <option name="CONTEXT_PATH" value="/ServerEdU_war_exploded" />
         </settings>
       </artifact>
     </deployment>
     <server-settings>
       <option name="BASE_DIRECTORY_NAME" value="fca4678e-8476-4a9c-a89c-a217a8b21744" />
+      <option name="HTTP_PORT" value="9999" />
+      <option name="JNDI_PORT" value="10100" />
     </server-settings>
-    <predefined_log_file enabled="true" id="Tomcat" />
-    <predefined_log_file enabled="true" id="Tomcat Catalina" />
+    <log_file checked="false" alias="Tomcat Localhost Log" path="%IDEA_RUN:CATALINA_BASE%/logs/localhost.*" />
+    <log_file checked="false" alias="Tomcat Catalina Log" path="%IDEA_RUN:CATALINA_BASE%/logs/catalina.*" />
+    <log_file alias="Tomcat Host Manager Log" path="%IDEA_RUN:CATALINA_BASE%/logs/host-manager.*" />
+    <log_file alias="Tomcat Localhost Access Log" path="%IDEA_RUN:CATALINA_BASE%/logs/localhost_access_log.*" />
     <predefined_log_file id="Tomcat Manager" />
-    <predefined_log_file id="Tomcat Host Manager" />
-    <predefined_log_file id="Tomcat Localhost Access" />
     <RunnerSettings RunnerId="Debug">
       <option name="DEBUG_PORT" value="42005" />
     </RunnerSettings>
@@ -79,11 +82,15 @@
         <option name="VM_PARAMETERS" value="" />
         <option name="PROGRAM_PARAMETERS" value="" />
       </SHUTDOWN>
+      <EnvironmentVariables>
+        <option name="NAME" value="JAVA_OPTS" />
+        <option name="VALUE" value="-Duser.country=EN -Duser.language=en" />
+        <option name="IS_PREDEFINED" value="false" />
+      </EnvironmentVariables>
     </ConfigurationWrapper>
     <method v="2">
-      <option name="Make" enabled="true" />
       <option name="BuildArtifacts" enabled="true">
-        <artifact name="SrevletServerEdu:war exploded" />
+        <artifact name="ServerEdU:war exploded" />
       </option>
     </method>
   </configuration>

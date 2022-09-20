@@ -1,6 +1,5 @@
 package ru.edu.servlet.tagHandler;
 
-import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.JspWriter;
 import jakarta.servlet.jsp.tagext.SimpleTagSupport;
 import ru.edu.servlet.dto.ProductDesc;
