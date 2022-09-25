@@ -1,0 +1,31 @@
+<div id="header" xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+  <div class="container">
+    <div class="displayFlex">
+      <form class="form" th:action="@{/product}" method="get">
+        <button type="submit">На главную</button>
+      </form>
+      <form class="form" th:action="@{/login}" method="get">
+        <button type="submit">Войти</button>
+      </form>
+      <form class="form" th:action="@{/logout}" method="get">
+        <button type="submit">Выйти</button>
+      </form>
+      <form class="form" th:action="@{/createUser}" method="get">
+        <button type="submit">Зарегистрироваться</button>
+      </form>
+      <form class="form" th:action="@{/product/chart}" method="get">
+        <button type="submit">Показать корзину</button>
+      </form>
+      <form class="form" th:action="@{/product/order/view}" method="get">
+        <button type="submit">Показать заказы</button>
+      </form>
+      <form class="form" th:action="@{/userDetails/viewDetails}" method="get">
+        <button type="submit">Инофрмация пользователя</button>
+      </form>
+    </div>
+    <h1 class="title" th:text="#{welcome.message (${user ?: 'unknown'})}">Hello, people!</h1>
+  </div>
+</div>
+<div id="footer" xmlns:th="http://www.thymeleaf.org" th:fragment="footer">
+  <h4 class="title" th:text="#{time.message (${#dates.format(date, 'dd-MM-yyyy HH:mm')?: 'unknown'})}">Время:</h4>
+</div>
