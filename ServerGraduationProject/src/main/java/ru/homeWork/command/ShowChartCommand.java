@@ -12,27 +12,29 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Slf4j
-public class ProductViewCommand extends FrontCommand {
+public class ShowChartCommand extends FrontCommand {
 
     ProductsRepo productsRepo = ProductsRepoDbH2.getInstance();
     ChartCache chartCache = ChartCache.getInstance();
 
     @Override
     public void process() throws ServletException, IOException {
-        List<Product> all = null;
+        List<Product> all;
+        List<String> productPksBySessionAndUser = chartCache.getProductPksBySessionAndUser(sessionId, user);
         try {
-            all = productsRepo.getAll();
+            all = productsRepo.getByIds(productPksBySessionAndUser);
         } catch (SQLException e) {
             log.error("SQL error:{}", e.toString());
             response.sendError(500, e.getMessage());
             return;
         }
         request.setAttribute("products", all);
-        int quantityProdInChart = chartCache.getQuantityBySessionAndUser(request.getSession().getId(), user);
 
-        request.setAttribute("charQuantity", quantityProdInChart);
+        Double totalPrice = all.stream().map(Product::getPrice).reduce(0.0, Double::sum);
 
-        forward("ProductView");
+        request.setAttribute("charQuantity", all.size());
+        request.setAttribute("totalPrice", totalPrice);
 
+        forward("UserChartView");
     }
 }

@@ -11,14 +11,20 @@ public abstract class FrontCommand {
     protected ServletContext context;
     protected HttpServletRequest request;
     protected HttpServletResponse response;
+    protected String user;
+    protected String sessionId;
 
     public void init(
             ServletContext servletContext,
             HttpServletRequest servletRequest,
-            HttpServletResponse servletResponse) {
+            HttpServletResponse servletResponse,
+            String user,
+            String session) {
         this.context = servletContext;
         this.request = servletRequest;
         this.response = servletResponse;
+        this.user = user;
+        this.sessionId = session;
     }
 
     public abstract void process() throws ServletException, IOException;

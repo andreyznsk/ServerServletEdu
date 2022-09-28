@@ -11,5 +11,10 @@
             <required>yes</required>
             <rtexprvalue>yes</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>action</name>
+            <required>yes</required>
+            <rtexprvalue>yes</rtexprvalue>
+        </attribute>
     </tag>
 </taglib>

@@ -30,14 +30,15 @@ public class FrontController extends HttpServlet {
 
         String commandStr = request.getParameter("command");
         HttpSession session = request.getSession();
+        String userName = getUserNameFromCookie(request.getCookies());
+        request.setAttribute("username", userName);
 
-        log.info("Receive get from path info: {}, with command: {}", request.getPathInfo(), commandStr);
+        log.info("Receive get from path info: {}, with command: {}, and user: {}", request.getPathInfo(), commandStr, userName);
 
-        if (commandStr == null) {
+        if (commandStr == null || userName == null) {
             if (session.isNew()) {
                 session.setMaxInactiveInterval(600);
             }
-            String userName = getUserNameFromCookie(request.getCookies());
             if (userName == null) {
                 request.getRequestDispatcher("/index?command=Auth").forward(request, response);
             } else {
@@ -46,7 +47,7 @@ public class FrontController extends HttpServlet {
 
         } else {
             FrontCommand command = getCommand(commandStr);
-            command.init(getServletContext(), request, response);
+            command.init(getServletContext(), request, response, userName, session.getId());
             command.process();
         }
     }
@@ -60,7 +61,7 @@ public class FrontController extends HttpServlet {
             log.info("User logg in: {}", userName);
             String commandStr = req.getParameter("command");
             FrontCommand command = getCommand(commandStr);
-            command.init(getServletContext(), req, resp);
+            command.init(getServletContext(), req, resp, userName, req.getSession().getId());
             command.process();
         }
 

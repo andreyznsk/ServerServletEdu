@@ -9,11 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductsRepoDbH2 implements ProductsRepo {
 
     private static final ProductsRepoDbH2 PRODUCTS_REPO_IMPL = new ProductsRepoDbH2();
     private static final String SELECT_ALL_SQL = "SELECT * FROM PRODUCTS;";
+    private static final String SELECT_BY_ID_SQL = "SELECT * FROM PRODUCTS WHERE PROD_ID IN %s;";
 
     private ProductsRepoDbH2(){}
 
@@ -26,8 +28,8 @@ public class ProductsRepoDbH2 implements ProductsRepo {
     public List<Product> getAll() throws SQLException {
         List<Product> result = new ArrayList<>();
         try(Connection connection = TomCatDataSource.getConnection();
-            PreparedStatement psAccountSelectAll = connection.prepareStatement(SELECT_ALL_SQL)) {
-            ResultSet rs = psAccountSelectAll.executeQuery();
+            PreparedStatement select = connection.prepareStatement(SELECT_ALL_SQL)) {
+            ResultSet rs = select.executeQuery();
             while (rs.next()){
                 Product product = new Product(rs.getString("prod_id"),
                         rs.getDouble("price"),
@@ -36,5 +38,30 @@ public class ProductsRepoDbH2 implements ProductsRepo {
             }
         }
             return result;
+    }
+
+    @Override
+    public List<Product> getByIds(List<String> id) throws SQLException {
+        List<Product> result = new ArrayList<>();
+        if(id.isEmpty()) {
+            return result;
+        } else {
+            String sqlIN = id.stream()
+                    .collect(Collectors.joining("','", "('", "')"));
+            String formattedSql = String.format(SELECT_BY_ID_SQL, sqlIN);
+
+            try (Connection connection = TomCatDataSource.getConnection();
+                 PreparedStatement select = connection.prepareStatement(formattedSql)) {
+
+                ResultSet rs = select.executeQuery();
+                while (rs.next()) {
+                    Product product = new Product(rs.getString("prod_id"),
+                            rs.getDouble("price"),
+                            rs.getString("name"));
+                    result.add(product);
+                }
+            }
+            return result;
+        }
     }
 }

@@ -1,7 +1,7 @@
 <%--suppress unchecked --%>
 <%@ page contentType="text/html;charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib prefix="ex" uri="/WEB-INF/tld/productListPrinter.tld"%>
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="ex" uri="/WEB-INF/tld/productListPrinter.tld" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%@ page import="ru.homeWork.dto.Product" %>
@@ -14,7 +14,7 @@
 <%
     Locale locale = request.getLocale();
     ResourceBundle rb = ResourceBundle.getBundle("messages", locale);
-    String user = (String) request.getAttribute("user");
+    String user = (String) request.getAttribute("username");
 
     if (user == null) {
         user = rb.getString("unknown.user");
@@ -37,20 +37,32 @@
 </head>
 <body>
 
-
-
-Product view!
+<h2><fmt:message key="title"/></h2>
+<h3>"<%=welcomeMsg%>"</h3>
 <%
     List<Product> productDescList = (List<Product>) request.getAttribute("products");
     int quantityProdInChart = (int) request.getAttribute("charQuantity");
+    double totalPrice = (double) request.getAttribute("totalPrice");
+    if (productDescList.isEmpty()) {
+%>
+    <h3>Chart is empty</h3>
+<%
+} else {
+%>
+    <ex:listPrinter products='<%=productDescList%>' action="RemoveFromChart"/>
+    <h3>Total price: <%=totalPrice%></h3>
+<%
+    }
 %>
 
-<ex:listPrinter products='<%=productDescList%>' action="AddToChart"/>
 
 <hr>
 <a href="${pageContext.request.contextPath}/index?command=ShowChart" charset="UTF-8"> User chart</a>
 <br>
 Chart quantity: "<%=quantityProdInChart%>"
+
+<a href="${pageContext.request.contextPath}/index" charset="UTF-8"> Product catalog</a>
+
 
 <footer>
     <h4><fmt:message key="time.message"/> <fmt:formatDate pattern='<%=datePattern%>' value='<%=today%>'/></h4>
