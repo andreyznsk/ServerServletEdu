@@ -1,11 +1,10 @@
 package ru.homeWork.command;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.Locale;
 
 @Slf4j
 public class AuthCommand extends FrontCommand {
@@ -24,7 +23,8 @@ public class AuthCommand extends FrontCommand {
                     response.sendError(400, "UserName or password empty");
                 } else {
                     log.info("method POST with login: {}", username);
-                    request.getSession().setAttribute("username", username);
+                    Cookie user = new Cookie("username", username);
+                    response.addCookie(user);
                 }
                 break;
             }

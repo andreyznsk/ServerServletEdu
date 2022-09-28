@@ -26,24 +26,29 @@ public class SessionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
 
+        log.info("Receive request host:{}", request.getRemoteHost());
+
         Cookie[] cookies = ((HttpServletRequest) request).getCookies();
-        if(cookies != null) {
+        if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("JSESSIONID".equals(cookie.getName())) {
                     MDC.put("JSESSIONID", cookie.getValue());
                 }
             }
+        }
+        try {
+            chain.doFilter(request, response);
+            MDC.remove("JSESSIONID");
+        } catch (IOException | ServletException e) {
+            log.error("Filter error", e);
+            MDC.remove("JSESSIONID");
             try {
-                chain.doFilter(request, response);
-            } catch (IOException | ServletException e) {
-                log.error("Filter error", e);
-                MDC.remove("JSESSIONID");
-                try {
-                    ((HttpServletResponse) response).sendError(500, "Server internal error");
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                ((HttpServletResponse) response).sendError(500, "Server internal error");
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
         }
+
+
     }
 }

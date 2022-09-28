@@ -11,11 +11,18 @@
     <title>Login page</title>
 </head>
 <body>
+
+<%--<%@ include file="../html/menu_headder.html" %>--%>
+
 <h2>Trying to login</h2>
 <form name="loginForm" method="POST"
-      action="/index?command=Auth">
-    Username: <input type="text" name="username"/> <br/>
-    <input type="submit" value="Login" />
+      action="${pageContext.request.contextPath}/index?command=Auth">
+    Username:
+    <label>
+        <input type="text" name="username"/>
+    </label>
+    <br/>
+    <input type="submit" value="Login"/>
 </form>
 
 </body>

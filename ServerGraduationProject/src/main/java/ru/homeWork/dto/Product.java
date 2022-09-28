@@ -8,6 +8,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class Product {
     private String id;
+    private Double price;
     private String name;
-    private Long price;
 }

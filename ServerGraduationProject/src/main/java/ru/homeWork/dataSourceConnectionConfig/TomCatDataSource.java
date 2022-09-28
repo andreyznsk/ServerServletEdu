@@ -39,8 +39,7 @@ public class TomCatDataSource {
         DataSource datasource = new DataSource();
         datasource.setPoolProperties(p);
         TomCatDataSource.datasource = datasource;
-        log.info("======TomCat dataSource configured successfully with properties:");
-        log.info(p.getConnectionProperties());
+        log.info("======TomCat dataSource configured successfully with url:{}", p.getUrl());
     }
 
     public static Connection getConnection() throws SQLException {

@@ -29,9 +29,9 @@ public class ProductsRepoDbH2 implements ProductsRepo {
             PreparedStatement psAccountSelectAll = connection.prepareStatement(SELECT_ALL_SQL)) {
             ResultSet rs = psAccountSelectAll.executeQuery();
             while (rs.next()){
-                Product product = new Product(rs.getString(1),
-                        rs.getString(2),
-                        rs.getLong(3));
+                Product product = new Product(rs.getString("prod_id"),
+                        rs.getDouble("price"),
+                        rs.getString("name"));
                 result.add(product);
             }
         }

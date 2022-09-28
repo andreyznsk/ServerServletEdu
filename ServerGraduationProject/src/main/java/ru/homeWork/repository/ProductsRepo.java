@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ProductsRepo {
     List<Product> getAll() throws SQLException;
+
 }

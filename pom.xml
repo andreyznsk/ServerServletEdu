@@ -31,6 +31,7 @@
         <jsp-api.version>2.1</jsp-api.version>
         <jakarta.servlet.jsp-api.version>3.0.0</jakarta.servlet.jsp-api.version>
         <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
     </properties>
 
     <dependencyManagement>

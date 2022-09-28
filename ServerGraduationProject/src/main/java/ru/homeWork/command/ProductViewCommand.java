@@ -1,26 +1,38 @@
 package ru.homeWork.command;
 
 import jakarta.servlet.ServletException;
+import lombok.extern.slf4j.Slf4j;
+import ru.homeWork.chartCache.ChartCache;
+import ru.homeWork.dto.Product;
+import ru.homeWork.repository.ProductsRepo;
+import ru.homeWork.repository.ProductsRepoDbH2;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
 
+@Slf4j
 public class ProductViewCommand extends FrontCommand {
+
+    ProductsRepo productsRepo = ProductsRepoDbH2.getInstance();
+    ChartCache chartCache = ChartCache.getInstance();
+
     @Override
     public void process() throws ServletException, IOException {
-        /*Book book = new BookshelfImpl().getInstance()
-                .findByTitle(request.getParameter("title"));
-        if (book != null) {
-            request.setAttribute("book", book);
-            forward("book-found");
-        } else {
-            forward("book-notfound");
-        }*/
-        String user = "anyUser";
+        List<Product> all = null;
+        try {
+            all = productsRepo.getAll();
+        } catch (SQLException e) {
+            log.error("SQL error:{}", e.toString());
+            response.sendError(500, e.getMessage());
+            return;
+        }
+        request.setAttribute("products", all);
+        int quantityProdInChart = chartCache.getQuantityBySession(request.getSession().getId());
 
-        PrintWriter out = response.getWriter();
-        out.println("<h2>cart by user: [" + user + "} catalog</n2>");
-        //List<Product> byUser = cartRepo.getByUser(user);
-        out.println("getBodyTableByProduct(byUser)");
+        request.setAttribute("charQuantity", quantityProdInChart);
+
+        forward("ProductView");
+
     }
 }
