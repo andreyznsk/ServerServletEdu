@@ -60,7 +60,7 @@
 <a href="${pageContext.request.contextPath}/index?command=ShowChart" charset="UTF-8"> User chart</a>
 <br>
 Chart quantity: "<%=quantityProdInChart%>"
-
+<br>
 <a href="${pageContext.request.contextPath}/index" charset="UTF-8"> Product catalog</a>
 
 
