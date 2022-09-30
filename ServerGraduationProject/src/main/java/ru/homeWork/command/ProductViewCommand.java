@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import static ru.homeWork.command.CommandTypeAndParam.CHART_QUANTITY_PARAM;
+import static ru.homeWork.command.CommandTypeAndParam.PRODUCT_LIST_PARAM;
+import static ru.homeWork.command.CommandTypeAndParam.PRODUCT_VIEW;
+
 @Slf4j
 public class ProductViewCommand extends FrontCommand {
 
@@ -19,7 +23,7 @@ public class ProductViewCommand extends FrontCommand {
 
     @Override
     public void process() throws ServletException, IOException {
-        List<Product> all = null;
+        List<Product> all;
         try {
             all = productsRepo.getAll();
         } catch (SQLException e) {
@@ -27,12 +31,12 @@ public class ProductViewCommand extends FrontCommand {
             response.sendError(500, e.getMessage());
             return;
         }
-        request.setAttribute("products", all);
+        request.setAttribute(PRODUCT_LIST_PARAM.getCommand(), all);
         int quantityProdInChart = chartCache.getQuantityBySessionAndUser(request.getSession().getId(), user);
 
-        request.setAttribute("charQuantity", quantityProdInChart);
+        request.setAttribute(CHART_QUANTITY_PARAM.getCommand(), quantityProdInChart);
 
-        forward("ProductView");
+        forward(PRODUCT_VIEW.getCommand());
 
     }
 }

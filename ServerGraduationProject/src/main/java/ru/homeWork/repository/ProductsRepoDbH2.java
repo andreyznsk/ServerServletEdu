@@ -31,9 +31,9 @@ public class ProductsRepoDbH2 implements ProductsRepo {
             PreparedStatement select = connection.prepareStatement(SELECT_ALL_SQL)) {
             ResultSet rs = select.executeQuery();
             while (rs.next()){
-                Product product = new Product(rs.getString("prod_id"),
-                        rs.getDouble("price"),
-                        rs.getString("name"));
+                Product product = new Product(rs.getString(1),
+                        rs.getDouble(2),
+                        rs.getString(3));
                 result.add(product);
             }
         }
@@ -55,9 +55,9 @@ public class ProductsRepoDbH2 implements ProductsRepo {
 
                 ResultSet rs = select.executeQuery();
                 while (rs.next()) {
-                    Product product = new Product(rs.getString("prod_id"),
-                            rs.getDouble("price"),
-                            rs.getString("name"));
+                    Product product = new Product(rs.getString(1),
+                            rs.getDouble(2),
+                            rs.getString(3));
                     result.add(product);
                 }
             }

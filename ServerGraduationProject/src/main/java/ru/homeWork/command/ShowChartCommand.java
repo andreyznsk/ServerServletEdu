@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import static ru.homeWork.command.CommandTypeAndParam.CHART_QUANTITY_PARAM;
+import static ru.homeWork.command.CommandTypeAndParam.PRODUCT_LIST_PARAM;
+import static ru.homeWork.command.CommandTypeAndParam.TOTAL_PRICE;
+
 @Slf4j
 public class ShowChartCommand extends FrontCommand {
 
@@ -28,12 +32,12 @@ public class ShowChartCommand extends FrontCommand {
             response.sendError(500, e.getMessage());
             return;
         }
-        request.setAttribute("products", all);
+        request.setAttribute(PRODUCT_LIST_PARAM.getCommand(), all);
 
         Double totalPrice = all.stream().map(Product::getPrice).reduce(0.0, Double::sum);
 
-        request.setAttribute("charQuantity", all.size());
-        request.setAttribute("totalPrice", totalPrice);
+        request.setAttribute(CHART_QUANTITY_PARAM.getCommand(), all.size());
+        request.setAttribute(TOTAL_PRICE.getCommand(), totalPrice);
 
         forward("UserChartView");
     }

@@ -10,11 +10,15 @@
 <%@ page import="java.util.ResourceBundle" %>
 <%@ page import="java.text.MessageFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="static ru.homeWork.command.CommandTypeAndParam.USER_PARAM" %>
+<%@ page import="static ru.homeWork.command.CommandTypeAndParam.COMMAND_CONTEXT" %>
+<%@ page import="static ru.homeWork.command.CommandTypeAndParam.SHOW_CHART" %>
+<%@ page import="static ru.homeWork.command.CommandTypeAndParam.*" %>
 
 <%
     Locale locale = request.getLocale();
     ResourceBundle rb = ResourceBundle.getBundle("messages", locale);
-    String user = (String) request.getAttribute("username");
+    String user = (String) request.getAttribute(USER_PARAM.getCommand());
 
     if (user == null) {
         user = rb.getString("unknown.user");
@@ -23,6 +27,8 @@
     String welcomeMsg = MessageFormat.format(welcomeMsgTemplate, user);
     String datePattern = rb.getString("date.format");
     Date today = new Date();
+    String showChartLink = pageContext.getServletContext().getContextPath() + COMMAND_CONTEXT.getCommand() + SHOW_CHART.getCommand();
+    String homePage = pageContext.getServletContext().getContextPath() + INDEX_CONTEXT.getCommand();
 %>
 <fmt:setLocale value='<%=locale%>'/>
 <fmt:setBundle basename="messages"/>
@@ -45,23 +51,26 @@
     double totalPrice = (double) request.getAttribute("totalPrice");
     if (productDescList.isEmpty()) {
 %>
-    <h3>Chart is empty</h3>
+<h3>Chart is empty</h3>
 <%
 } else {
 %>
-    <ex:listPrinter products='<%=productDescList%>' action="RemoveFromChart"/>
-    <h3>Total price: <%=totalPrice%></h3>
+<ex:listPrinter products='<%=productDescList%>' action="RemoveFromChart"/>
+<h3>Total price: <%=totalPrice%>
+</h3>
 <%
     }
 %>
 
 
 <hr>
-<a href="${pageContext.request.contextPath}/index?command=ShowChart" charset="UTF-8"> User chart</a>
+<a href="<%=showChartLink%>"
+   charset="UTF-8"> User chart</a>
 <br>
 Chart quantity: "<%=quantityProdInChart%>"
 <br>
-<a href="${pageContext.request.contextPath}/index" charset="UTF-8"> Product catalog</a>
+<a href="<%=homePage%>" charset="UTF-8"> Product
+    catalog</a>
 
 
 <footer>

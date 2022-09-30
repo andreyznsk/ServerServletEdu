@@ -5,11 +5,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%@ page import="ru.homeWork.dto.Product" %>
+<%@ page import="ru.homeWork.command.CommandTypeAndParam" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Locale" %>
 <%@ page import="java.util.ResourceBundle" %>
 <%@ page import="java.text.MessageFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="static ru.homeWork.command.CommandTypeAndParam.CHART_QUANTITY_PARAM" %>
+<%@ page import="static ru.homeWork.command.CommandTypeAndParam.PRODUCT_LIST_PARAM" %>
+<%@ page import="static ru.homeWork.command.CommandTypeAndParam.COMMAND_CONTEXT" %>
+<%@ page import="static ru.homeWork.command.CommandTypeAndParam.SHOW_CHART" %>
 
 <%
     Locale locale = request.getLocale();
@@ -23,6 +28,7 @@
     String welcomeMsg = MessageFormat.format(welcomeMsgTemplate, user);
     String datePattern = rb.getString("date.format");
     Date today = new Date();
+    String showChartLink = pageContext.getServletContext().getContextPath() + COMMAND_CONTEXT.getCommand() + SHOW_CHART.getCommand();
 %>
 <fmt:setLocale value='<%=locale%>'/>
 <fmt:setBundle basename="messages"/>
@@ -41,14 +47,14 @@
 
 Product view!
 <%
-    List<Product> productDescList = (List<Product>) request.getAttribute("products");
-    int quantityProdInChart = (int) request.getAttribute("charQuantity");
+    List<Product> productDescList = (List<Product>) request.getAttribute(PRODUCT_LIST_PARAM.getCommand());
+    int quantityProdInChart = (int) request.getAttribute(CHART_QUANTITY_PARAM.getCommand());
 %>
 
 <ex:listPrinter products='<%=productDescList%>' action="AddToChart"/>
 
 <hr>
-<a href="${pageContext.request.contextPath}/index?command=ShowChart" charset="UTF-8"> User chart</a>
+<a href="<%=showChartLink%>" charset="UTF-8"> User chart</a>
 <br>
 Chart quantity: "<%=quantityProdInChart%>"
 

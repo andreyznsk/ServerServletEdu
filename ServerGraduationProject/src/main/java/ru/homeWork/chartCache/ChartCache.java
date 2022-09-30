@@ -21,12 +21,11 @@ public class ChartCache {
     }
 
     public List<String> getProductPksBySessionAndUser(String session, String user){
-       return userChart.get(getKey(session, user)) == null ? Collections.emptyList() : userChart.get(getKey(session, user));
+        return userChart.getOrDefault(getKey(session, user), Collections.emptyList());
     }
 
     public int getQuantityBySessionAndUser(String session, String user){
         return userChart.getOrDefault(getKey(session, user), Collections.emptyList()).size();
-
     }
 
     public void addProductToChartCacheBySessionAndUser(String prod_id, String session, String user) {
@@ -36,7 +35,6 @@ public class ChartCache {
     public void removeProductFromChartBySessionAndUser(String prod_id, String session, String user) {
         List<String> orDefault = userChart.getOrDefault(getKey(session, user), Collections.emptyList());
         orDefault.remove(prod_id);
-
     }
 
     private void removeAllChartBySessionAndUser(String session, String user) {

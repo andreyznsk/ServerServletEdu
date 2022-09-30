@@ -15,53 +15,63 @@ import ru.homeWork.dataSourceConnectionConfig.TomCatDataSource;
 import java.io.IOException;
 import java.util.Arrays;
 
+import static ru.homeWork.command.CommandTypeAndParam.AUTH;
+import static ru.homeWork.command.CommandTypeAndParam.COMMAND_PARAM;
+import static ru.homeWork.command.CommandTypeAndParam.PRODUCT_VIEW;
+import static ru.homeWork.command.CommandTypeAndParam.USER_PARAM;
+
 @Slf4j
 @WebServlet(name = "FrontController", urlPatterns = {"", "/", "/index"}, loadOnStartup = 1)
 public class FrontController extends HttpServlet {
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         TomCatDataSource.conf();
+        log.info("\n\t==========SERVER STARTED============");
     }
 
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
 
-        String commandStr = request.getParameter("command");
+        String commandStr = request.getParameter(COMMAND_PARAM.getCommand());
         HttpSession session = request.getSession();
         String userName = getUserNameFromCookie(request.getCookies());
-        request.setAttribute("username", userName);
+        request.setAttribute(USER_PARAM.getCommand(), userName);
 
         log.info("Receive get from path info: {}, with command: {}, and user: {}", request.getPathInfo(), commandStr, userName);
 
-        if (commandStr == null || userName == null) {
+        if (userName == null) {
             if (session.isNew()) {
                 session.setMaxInactiveInterval(600);
             }
-            if (userName == null) {
-                request.getRequestDispatcher("/index?command=Auth").forward(request, response);
-            } else {
-                request.getRequestDispatcher("/index?command=ProductView").forward(request, response);
-            }
-
-        } else {
+            FrontCommand command = getCommand(AUTH.getCommand());
+            command.init(getServletContext(), request, response, userName, session.getId());
+            command.process();
+        }
+        else if (commandStr != null) {
             FrontCommand command = getCommand(commandStr);
+            command.init(getServletContext(), request, response, userName, session.getId());
+            command.process();
+        } else {
+            FrontCommand command = getCommand(PRODUCT_VIEW.getCommand());
             command.init(getServletContext(), request, response, userName, session.getId());
             command.process();
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userName = getUserNameFromCookie(req.getCookies());
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userName = getUserNameFromCookie(request.getCookies());
         if (userName == null) {
-            resp.sendRedirect(req.getContextPath() + "/index");
+            FrontCommand command = getCommand(AUTH.getCommand());
+            command.init(getServletContext(), request, response, null, request.getSession().getId());
+            command.process();
         } else {
             log.info("User logg in: {}", userName);
-            String commandStr = req.getParameter("command");
+            String commandStr = request.getParameter(COMMAND_PARAM.getCommand());
             FrontCommand command = getCommand(commandStr);
-            command.init(getServletContext(), req, resp, userName, req.getSession().getId());
+            command.init(getServletContext(), request, response, userName, request.getSession().getId());
             command.process();
         }
 
@@ -74,19 +84,21 @@ public class FrontController extends HttpServlet {
                     command));
             return type
                     .asSubclass(FrontCommand.class)
-                    .newInstance();
+                    .getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             return new UnknownCommand();
         }
     }
 
     private String getUserNameFromCookie(Cookie[] cookies) {
-
-        return Arrays.stream(cookies).filter(cookie -> "username".equals(cookie.getName()))
-                .findFirst()
-                .map(Cookie::getValue)
-                .orElse(null);
-
+        if (cookies == null) {
+            return null;
+        } else {
+            return Arrays.stream(cookies).filter(cookie -> USER_PARAM.getCommand().equals(cookie.getName()))
+                    .findFirst()
+                    .map(Cookie::getValue)
+                    .orElse(null);
+        }
     }
 
 

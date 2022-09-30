@@ -9,6 +9,9 @@ import ru.homeWork.dto.Product;
 import java.io.IOException;
 import java.util.List;
 
+import static ru.homeWork.command.CommandTypeAndParam.COMMAND_CONTEXT;
+import static ru.homeWork.command.CommandTypeAndParam.PROD_PARAM;
+
 @Setter
 public class ProductListPrinter extends SimpleTagSupport {
 
@@ -41,7 +44,7 @@ public class ProductListPrinter extends SimpleTagSupport {
                         .append("<td>").append(product.getName()).append("</td>\n")
                         .append("<td>").append(product.getPrice()).append("</td>\n")
                         .append("<td>").append("<a href=\"").append(contextPath)
-                            .append("/index?command=").append(action).append("&prod_id=")
+                            .append(COMMAND_CONTEXT.getCommand()).append(action).append("&").append(PROD_PARAM.getCommand()).append("=")
                         .append(product.getId()).append("\" charset=\"UTF-8\">").append(action).append("</a></td>\n")
                         .append("</tr>");
             }
