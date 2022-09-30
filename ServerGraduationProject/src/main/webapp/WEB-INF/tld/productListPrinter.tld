@@ -1,0 +1,20 @@
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.1</jsp-version>
+    <short-name>Test TLD</short-name>
+    <tag>
+        <name>listPrinter</name>
+        <tag-class>ru.homeWork.tagHandler.ProductListPrinter</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>products</name>
+            <required>yes</required>
+            <rtexprvalue>yes</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>action</name>
+            <required>yes</required>
+            <rtexprvalue>yes</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>
